@@ -1,0 +1,70 @@
+const {NotesModel} = require( '../models/notesModel' );
+
+
+const NotesController ={
+    allNotes: function(request, response){
+        NotesModel.findAll()
+        .then(data => response.json(data))
+        .catch(err => response.json(err));
+    },
+
+
+    seeNote: function(request, response){
+        console.log("The mongoose id requested is: ", request.params);
+        console.log("este es el request body: ",request.params._id)
+        let id = request.params._id;
+        console.log("id llega al controlador?", id);
+        NotesModel.findNotes(id)
+        .then(data => response.json(data))
+        .catch(err => response.json(err));
+        
+    },
+
+    createNote: function(request, response){
+        // console.log("The mongoose id requested is: ", request.params._id);
+        console.log("llega el request: ",request.body)
+        let noteContent = request.body.noteContent;
+        let created_at = new Date();
+        // let created_at=Date;
+        createdNotes = {
+            noteContent,
+            // updated_at,
+            created_at
+        };
+        console.log("informacion que sera guardada: ",createdNotes)
+        NotesModel.save(createdNotes)
+        .then(data => response.json(data))
+        .catch(err => response.json(err));
+        
+    },
+
+//     updateNotes: function(request, response){
+//         let id = request.params._id;
+//         let noteName= request.body.noteName;
+//         updatedNotes = {
+//             noteName
+//             // updated_at
+//         };
+//         console.log(id);
+//         NotesModel.findandUpdate(updatedNotes, id)
+//         .then(data => response.json(data))
+//         .catch(err => response.json(err));
+
+//     },
+
+//     removeNotes: function(request, response){
+//         // console.log("The mongoose id requested is: ", request.params._id);
+//         let id = request.params._id;
+//         NotesModel.delete(id)
+//         .then(data => response.json(data))
+//         .catch(err => response.json(err));
+        
+//     },
+
+
+};
+
+
+module.exports = {
+    NotesController
+};

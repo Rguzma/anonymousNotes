@@ -1,0 +1,40 @@
+const mongoose = require( 'mongoose' );
+const notesSchema = new mongoose.Schema({
+    noteContent:{
+        type: String,
+        minlength: 3
+    },
+    created_at: {
+        type: Date,
+        required: true
+    }
+});
+
+const Notes = mongoose.model('notes', notesSchema);
+
+const NotesModel = {
+    save: function(createdNotes){
+        return Notes.create(createdNotes);
+    },
+    findAll: function(){
+        return Notes.find();
+    },
+    findNotes: function(id){
+        console.log("lo que busca la funcion "+Notes.findById(id));
+        return Notes.findById(id);
+    },
+    // findandUpdate: function(updatedNotes, id){
+    //     // console.log("break the object: "+updateMongoose.mName+" "+updateMongoose.age);
+    //     return Notes.findByIdAndUpdate({_id:id}, {$set: {noteName: updatedNotes.noteName}});
+    // },
+
+    // delete: function(id){
+    //     return Notes.findOneAndRemove({_id:id});
+    // }
+
+}
+
+
+module.exports = {
+    NotesModel
+};

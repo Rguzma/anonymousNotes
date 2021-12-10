@@ -1,0 +1,19 @@
+const express = require( 'express');
+const NotesRouter = express.Router();
+const {NotesController} = require( '../controllers/notesController' );
+
+NotesRouter
+
+    .get ('/notes', NotesController.allNotes)
+
+    .get ('/notes/:_id', NotesController.seeNote)
+
+    .post('/notes', NotesController.createNote)
+
+
+
+
+    module.exports = {
+        NotesRouter
+    };
+    
